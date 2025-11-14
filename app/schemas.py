@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 class NoteBase(BaseModel):
     title: str = Field(..., min_length=1, max_length=200, description="Заголовок заметки")
-    content: str | None = Field(None, description="Содержимое заметки")
+    content: str = Field(..., description="Содержимое заметки")
 
 class NoteUpdate(BaseModel):
     title: str | None = Field(None, min_length=1, max_length=200)
