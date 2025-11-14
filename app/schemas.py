@@ -1,0 +1,23 @@
+from datetime import datetime
+
+from pydantic import BaseModel, Field
+
+
+class NoteBase(BaseModel):
+    title: str = Field(..., min_length=1, max_length=200, description="Заголовок заметки")
+    content: str | None = Field(None, description="Содержимое заметки")
+
+class NoteUpdate(BaseModel):
+    title: str | None = Field(None, min_length=1, max_length=200)
+    content: str | None = None
+
+class NoteCreate(NoteBase):
+    pass
+
+class Note(NoteBase):
+    id: int
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
